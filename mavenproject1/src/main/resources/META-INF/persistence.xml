@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="com.mycompany_mavenproject1_jar_1.0PU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.mavenproject1.mavenproject1.entity.Services</class>
+    <class>com.mavenproject1.mavenproject1.entity.Supervisor</class>
+    <class>com.mavenproject1.mavenproject1.entity.Status</class>
+    <class>com.mavenproject1.mavenproject1.entity.AbonentServices</class>
+    <class>com.mavenproject1.mavenproject1.entity.ApplicationType</class>
+    <class>com.mavenproject1.mavenproject1.entity.Applications</class>
+    <class>com.mavenproject1.mavenproject1.entity.Technician</class>
+    <class>com.mavenproject1.mavenproject1.entity.HomePhone</class>
+    <class>com.mavenproject1.mavenproject1.entity.Operator</class>
+    <class>com.mavenproject1.mavenproject1.entity.Users</class>
+    <class>com.mavenproject1.mavenproject1.entity.Remont</class>
+    <class>com.mavenproject1.mavenproject1.entity.Equipment</class>
+    <class>com.mavenproject1.mavenproject1.entity.Internet</class>
+    <class>com.mavenproject1.mavenproject1.entity.Abonent</class>
+    <class>com.mavenproject1.mavenproject1.entity.ServicesType</class>
+    <class>com.mavenproject1.mavenproject1.entity.Homephone</class>
+    <class>com.mavenproject1.mavenproject1.entity.Abonentservices</class>
+    <class>com.mavenproject1.mavenproject1.entity.Applicationtype</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/Glazyrin"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="1234"/>
+    </properties>
+  </persistence-unit>
+</persistence>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление новых сотрудников</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css"> <!-- Подключите ваш CSS файл для стилей -->
+</head>
+<body>
+
+    <h1>Добро пожаловать в Компанию</h1>
+    <h1>Регистрация новых сотрудников</h1>
+ <form id="registrationForm" >
+     
+        <table border="0">
+            <tr>
+                <td><label for="surname">Фамилия:</label></td>
+                <td><input type="text" id="surname" name="surname" required></td>
+            </tr>
+            <tr>
+                <td><label for="name">Имя:</label></td>
+                <td><input type="text" id="name" name="name" required></td>
+            </tr>
+            <tr>
+                <td><label for="patronymic">Отчество:</label></td>
+                <td><input type="text" id="patronymic" name="patronymic" required></td>
+            </tr>
+            <tr>
+                <td><label for="login">Логин:</label></td>
+                <td><input type="text" id="login" name="login" required></td>
+            </tr>
+            <tr>
+                <td><label for="password">Пароль:</label></td>
+                <td><input type="password" id="password" name="password" required></td>
+            </tr>
+            <tr>
+                <td><label for="phone">Номер телефона:</label></td>
+                <td><input type="text" id="phone" name="phone" required></td>
+            </tr>
+            <tr>
+                <td><label for="BirthDate">Дата рождения:</label></td>
+                <td><input type="date" id="BirthDate" name="BirthDate" required></td>
+            </tr>
+            <tr>
+                <td><label for="EmploymentDate">Дата трудоустройства:</label></td>
+                <td><input type="date" id="EmploymentDate" name="EmploymentDate" required></td>
+            </tr>
+            <tr>
+                <td><label for="PassportData">Паспортные данные:</label></td>
+                <td><input type="text" id="PassportData" name="PassportData" required></td>
+            </tr>
+            <tr>
+                <td><label for="SNILS">Снилс:</label></td>
+                <td><input type="text" id="SNILS" name="snils" required></td>
+            </tr>
+            <tr>
+                <td><label for="PhotoEquipment">Фото:</label></td>
+                <td><input type="file" id="PhotoEquipment" name="PhotoEquipment" accept="image/*"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button id="regButton" type="submit">Зарегистрироваться</button></td>
+            </tr>
+        </table>
+    </form>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const phoneInput = document.getElementById('phone');
+
+            phoneInput.addEventListener('input', function (e) {
+                let value = e.target.value.replace(/\D/g, '');
+                let formattedValue = '';
+
+                if (value.length > 0) {
+                    formattedValue = '8 (' + value.substring(1, 4);
+                }
+                if (value.length >= 4) {
+                    formattedValue += ') ' + value.substring(4, 7);
+                }
+                if (value.length >= 7) {
+                    formattedValue += '-' + value.substring(7, 9);
+                }
+                if (value.length >= 9) {
+                    formattedValue += '-' + value.substring(9, 11);
+                }
+
+                e.target.value = formattedValue;
+            });
+
+            const regButton = document.getElementById('regButton');
+
+            regButton.addEventListener('click', function (event) {
+                event.preventDefault();
+                const surname = document.getElementById('surname').value;
+                const name = document.getElementById('name').value;
+                const patronymic = document.getElementById('patronymic').value;
+                const BirthDate = document.getElementById('BirthDate').value;
+                const EmploymentDate = document.getElementById('EmploymentDate').value;
+                const PassportData = document.getElementById('PassportData').value;
+                const SNILS = document.getElementById('SNILS').value;
+                const phone = document.getElementById('phone').value;
+                const login = document.getElementById('login').value;
+                const password = document.getElementById('password').value;
+                const photoInput = document.getElementById('PhotoEquipment').files[0];
+
+                addEmployee(surname, name, patronymic, BirthDate, EmploymentDate, PassportData, SNILS, phone, login, password, photoInput);
+            });
+        });
+
+        async function addEmployee(surname, name, patronymic, BirthDate, EmploymentDate, PassportData, SNILS, phone, login, password, photo) {
+            const formData = new FormData();
+            formData.append('Surname', surname);
+            formData.append('Name', name);
+            formData.append('Patronymic', patronymic);
+            formData.append('BirthDate', BirthDate);
+            formData.append('EmploymentDate', EmploymentDate);
+            formData.append('PassportData', PassportData);
+            formData.append('SNILS', SNILS);
+            formData.append('Phone', phone);
+            formData.append('Login', login);
+            formData.append('Password', password);
+
+            if (photo) {
+                formData.append('PhotoEquipment', photo);
+            }
+
+            try {
+                const response = await fetch('http://localhost:8080/mavenproject1/addUserr', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    console.log('Сотрудник успешно добавлен');
+                    alert('Сотрудник успешно добавлен');
+                } else {
+                    console.error('Ошибка добавления сотрудника:', response.statusText);
+                    alert('Ошибка добавления сотрудника');
+                }
+            } catch (error) {
+                console.error('Ошибка добавления сотрудника:', error);
+                alert('Ошибка добавления сотрудника');
+            }
+        }
+    </script>
+</body>
+</html>
